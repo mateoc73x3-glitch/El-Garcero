@@ -26,6 +26,16 @@ interface MenuModalProps {
   onClose: () => void;
 }
 
+function preloadMenuPage(page: (typeof menuPages)[number], markLoaded: (pageId: string) => void) {
+  const mobileImage = new Image();
+  mobileImage.src = page.srcMobile;
+  mobileImage.onload = () => markLoaded(`${page.id}-mobile`);
+
+  const desktopImage = new Image();
+  desktopImage.src = page.src;
+  desktopImage.onload = () => markLoaded(`${page.id}-desktop`);
+}
+
 export default function MenuModal({ open, onClose }: MenuModalProps) {
   const [activePage, setActivePage] = useState(0);
   const [loadedPages, setLoadedPages] = useState<Record<string, boolean>>({});
@@ -47,16 +57,6 @@ export default function MenuModal({ open, onClose }: MenuModalProps) {
 
     document.body.style.overflow = 'hidden';
 
-    menuPages.forEach((page) => {
-      const mobileImage = new Image();
-      mobileImage.src = page.srcMobile;
-      mobileImage.onload = () => markLoaded(`${page.id}-mobile`);
-
-      const desktopImage = new Image();
-      desktopImage.src = page.src;
-      desktopImage.onload = () => markLoaded(`${page.id}-desktop`);
-    });
-
     const handleKey = (event: KeyboardEvent): void => {
       if (event.key === 'Escape') onClose();
       if (event.key === 'ArrowRight') goNext();
@@ -68,7 +68,7 @@ export default function MenuModal({ open, onClose }: MenuModalProps) {
       document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKey);
     };
-  }, [open, onClose, goNext, goPrev, markLoaded]);
+  }, [open, onClose, goNext, goPrev]);
 
   useEffect(() => {
     if (!open) {
@@ -76,6 +76,11 @@ export default function MenuModal({ open, onClose }: MenuModalProps) {
       setLoadedPages({});
     }
   }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    preloadMenuPage(menuPages[activePage], markLoaded);
+  }, [open, activePage, markLoaded]);
 
   const currentPage = menuPages[activePage];
   const isCurrentLoaded =

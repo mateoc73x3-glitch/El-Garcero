@@ -12,9 +12,6 @@ export interface ReservationPayload {
 const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
 const webhookKey = import.meta.env.VITE_N8N_WEBHOOK_KEY;
 
-export const isReservationWebhookConfigured = (): boolean =>
-  Boolean(webhookUrl && webhookKey);
-
 export async function submitReservation(payload: ReservationPayload): Promise<void> {
   if (!webhookUrl || !webhookKey) {
     throw new Error('Webhook de reservas no configurado');

@@ -6,20 +6,20 @@ import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 import { submitReservation } from './services/reservations';
-import heroLaMaestra from './assets/hero-la-maestra.png';
-import heroLaMaestraMovil from './assets/hero-la-maestra-movil.png';
-import logoElGarcero from './assets/logo-el-garcero.png';
-import selloAriariBurgerFestival from './assets/sello-ariari-burger-festival.png';
-import menuBatidoGuamaluno from './assets/menu-batido-guamaluno.png';
-import menuMalteadaBaileys from './assets/menu-malteada-baileys.png';
-import menuPerroMexicano from './assets/menu-perro-mexicano.png';
-import galeriaComidaBebidasFlatlay from './assets/galeria-comida-bebidas-flatlay.png';
-import galeriaBananaSplit from './assets/galeria-banana-split.png';
-import galeriaGranizadoAguardiente from './assets/galeria-granizado-aguardiente-llanero.png';
-import galeriaBebidasApiladas from './assets/galeria-bebidas-apiladas.png';
-import galeriaBebidaTerraza from './assets/galeria-bebida-terraza.png';
-import galeriaPataconCarneMechada from './assets/galeria-patacon-carne-mechada.png';
-import bannerPostres from './assets/banner-postres.png';
+import heroLaMaestra from './assets/hero-la-maestra.webp';
+import heroLaMaestraMovil from './assets/hero-la-maestra-movil.webp';
+import logoElGarcero from './assets/logo-el-garcero.webp';
+import selloAriariBurgerFestival from './assets/sello-ariari-burger-festival.webp';
+import menuBatidoGuamaluno from './assets/menu-batido-guamaluno.webp';
+import menuMalteadaBaileys from './assets/menu-malteada-baileys.webp';
+import menuPerroMexicano from './assets/menu-perro-mexicano.webp';
+import galeriaComidaBebidasFlatlay from './assets/galeria-comida-bebidas-flatlay.webp';
+import galeriaBananaSplit from './assets/galeria-banana-split.webp';
+import galeriaGranizadoAguardiente from './assets/galeria-granizado-aguardiente-llanero.webp';
+import galeriaBebidasApiladas from './assets/galeria-bebidas-apiladas.webp';
+import galeriaBebidaTerraza from './assets/galeria-bebida-terraza.webp';
+import galeriaPataconCarneMechada from './assets/galeria-patacon-carne-mechada.webp';
+import bannerPostres from './assets/banner-postres.webp';
 
 interface ReservationForm {
   name: string;
@@ -204,6 +204,8 @@ export default function App() {
             <img
               src={logoElGarcero}
               alt="El Garcero"
+              fetchPriority="high"
+              decoding="async"
               className="h-11 w-auto sm:h-14"
             />
           </a>
@@ -268,11 +270,15 @@ export default function App() {
           <img
             src={heroLaMaestraMovil}
             alt="El Garcero - La Maestra, hamburguesa del Ariari Burger Festival"
+            fetchPriority="high"
+            decoding="async"
             className="absolute inset-0 z-[1] h-full w-full object-cover object-center md:hidden"
           />
           <img
             src={heroLaMaestra}
             alt="El Garcero - La Maestra, hamburguesa del Ariari Burger Festival"
+            fetchPriority="high"
+            decoding="async"
             className="absolute inset-0 right-0 z-[1] hidden h-full w-full max-w-none object-cover object-[95%_68%] origin-[68%_100%] scale-[1.52] md:block md:[-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_92%,transparent_100%)] md:[mask-image:linear-gradient(to_bottom,black_0%,black_92%,transparent_100%)]"
           />
 
@@ -284,6 +290,8 @@ export default function App() {
           <motion.img
             src={selloAriariBurgerFestival}
             alt="Participante oficial - Ariari Burger Festival 2026"
+            fetchPriority="high"
+            decoding="async"
             initial={{ opacity: 0, scale: 0.85, rotate: 4 }}
             animate={{
               opacity: 1,
@@ -410,6 +418,8 @@ export default function App() {
                   <img
                     src={item.image}
                     alt={item.title}
+                    loading="lazy"
+                    decoding="async"
                     className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
                   />
                 </div>
@@ -434,6 +444,8 @@ export default function App() {
                 <img
                   src={image}
                   alt="Galeria El Garcero"
+                  loading="lazy"
+                  decoding="async"
                   className={`h-full w-full transition duration-500 hover:scale-105 ${galleryImageFit[index]}`}
                 />
                 </div>
@@ -453,6 +465,8 @@ export default function App() {
             <motion.img
               src={selloAriariBurgerFestival}
               alt="Participante oficial - Ariari Burger Festival 2026"
+              loading="lazy"
+              decoding="async"
               initial={{ opacity: 0, scale: 0.85 }}
               whileInView={{
                 opacity: 1,
@@ -697,6 +711,8 @@ export default function App() {
             <img
               src={bannerPostres}
               alt="Postres del Garcero"
+              loading="lazy"
+              decoding="async"
               className="h-full w-full object-cover object-top md:h-[calc(100%+50px)] md:-translate-y-[50px]"
             />
           </div>
@@ -722,6 +738,8 @@ export default function App() {
             <img
               src={logoElGarcero}
               alt="El Garcero"
+              loading="lazy"
+              decoding="async"
               className="h-11 w-auto brightness-0 invert sm:h-14"
             />
           </div>

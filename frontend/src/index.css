@@ -23,7 +23,7 @@ body {
 
 .texture-surface {
   background-color: #faf8f3;
-  background-image: url('./assets/fondo-textura-tarjetas.png');
+  background-image: url('./assets/fondo-textura-tarjetas.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
