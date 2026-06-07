@@ -1,0 +1,17 @@
+# Dependencias y build
+frontend/node_modules/
+frontend/dist/
+
+# Secretos (nunca subir)
+frontend/.env
+.env
+backend-env-backup.md
+
+# Logs
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

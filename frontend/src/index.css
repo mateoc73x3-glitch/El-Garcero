@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-background font-body text-primary antialiased;
+  background-image:
+    radial-gradient(circle at top right, rgba(230, 138, 0, 0.14), transparent 42%),
+    radial-gradient(circle at bottom left, rgba(244, 239, 226, 0.9), transparent 55%);
+}
+
+.texture-surface {
+  background-color: #faf8f3;
+  background-image: url('./assets/fondo-textura-tarjetas.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.glass {
+  @apply border border-white/50 bg-white/70 backdrop-blur-lg;
+}
+
+.brand-orange-surface {
+  background-color: #e68a00;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+}
