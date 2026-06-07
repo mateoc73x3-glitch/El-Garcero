@@ -108,7 +108,7 @@ export default function MenuModal({ open, onClose }: MenuModalProps) {
             initial={{ opacity: 0, scale: 0.94, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 12 }}
-            transition={{ duration: 0.35, ease: 'easeOut' }}
+            transition={{ duration: 0.35, ease: 'easeOut' as const }}
             className="relative flex h-[min(92svh,920px)] w-full max-w-[min(100%,560px)] flex-col overflow-hidden rounded-premium border border-white/20 bg-background shadow-premium md:max-w-[560px]"
           >
             <header className="flex shrink-0 items-center justify-between gap-3 border-b border-secondary/15 bg-white px-4 py-3 sm:px-6 sm:py-4">
@@ -145,7 +145,7 @@ export default function MenuModal({ open, onClose }: MenuModalProps) {
                   initial={{ opacity: 0, x: 24 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -24 }}
-                  transition={{ duration: 0.3, ease: 'easeOut' }}
+                  transition={{ duration: 0.3, ease: 'easeOut' as const }}
                   className="flex h-full w-full items-center justify-center"
                 >
                   <div className="aspect-[2/3] h-full max-h-full w-auto max-w-full overflow-hidden rounded-2xl border border-secondary/15 bg-white shadow-premium">

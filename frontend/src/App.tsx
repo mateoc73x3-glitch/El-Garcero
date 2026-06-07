@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { BookOpen, Clock3, MapPin, Menu, Phone, Sparkles, X } from 'lucide-react';
 import MenuModal from './components/MenuModal';
 import ReservationDatePicker from './components/ReservationDatePicker';
@@ -43,8 +43,8 @@ const todayDateValue = (): string => new Date().toISOString().split('T')[0];
 
 const reveal = {
   hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } },
-};
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' as const } },
+} satisfies Variants;
 
 const featuredMenu = [
   {
@@ -293,7 +293,7 @@ export default function App() {
             transition={{
               opacity: { duration: 0.6 },
               rotate: { duration: 0.6 },
-              scale: { duration: 2.6, repeat: Infinity, ease: 'easeInOut', repeatType: 'loop' },
+              scale: { duration: 2.6, repeat: Infinity, ease: 'easeInOut' as const, repeatType: 'loop' as const },
             }}
             style={{ transformOrigin: 'center center' }}
             className="absolute bottom-[8%] right-[6%] z-20 h-[6.8rem] w-auto drop-shadow-[0_14px_36px_rgba(0,0,0,0.55)] sm:bottom-[9%] sm:right-[7%] sm:h-32 md:bottom-[13%] md:left-[56%] md:right-auto md:h-[168px] lg:bottom-[14%] lg:left-[57%] lg:h-[180px]"
@@ -461,7 +461,7 @@ export default function App() {
               viewport={{ once: true }}
               transition={{
                 opacity: { duration: 0.6 },
-                scale: { duration: 2.6, repeat: Infinity, ease: 'easeInOut', repeatType: 'loop' },
+                scale: { duration: 2.6, repeat: Infinity, ease: 'easeInOut' as const, repeatType: 'loop' as const },
               }}
               style={{ transformOrigin: 'center center' }}
               className="h-[220px] w-auto drop-shadow-[0_12px_32px_rgba(255,255,255,0.12)] sm:h-[236px] md:h-[252px] lg:h-[268px]"
