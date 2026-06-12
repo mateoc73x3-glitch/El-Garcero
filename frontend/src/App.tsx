@@ -2,7 +2,7 @@ import { motion, type Variants } from 'framer-motion';
 import { BookOpen, Clock3, MapPin, Menu, Phone, Sparkles, X } from 'lucide-react';
 import MenuModal from './components/MenuModal';
 import ReservationDatePicker from './components/ReservationDatePicker';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 import { submitReservation } from './services/reservations';
@@ -144,6 +144,7 @@ const socialLinks = [
 ];
 
 export default function App() {
+  const headerRef = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartaOpen, setCartaOpen] = useState(false);
   const [isSubmittingReservation, setIsSubmittingReservation] = useState(false);
@@ -189,6 +190,59 @@ export default function App() {
 
   const closeMenu = (): void => setMenuOpen(false);
 
+  const syncHeaderHeight = (): void => {
+    const header = headerRef.current;
+    if (!header) return;
+
+    document.documentElement.style.setProperty(
+      '--header-height',
+      `${header.getBoundingClientRect().height}px`,
+    );
+  };
+
+  const scrollToSection = (targetId: string): void => {
+    const target = document.getElementById(targetId);
+    const header = headerRef.current;
+    if (!target || !header) return;
+
+    const top = window.scrollY + target.getBoundingClientRect().top - header.getBoundingClientRect().height;
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
+  const handleSectionNav = (event: MouseEvent<HTMLAnchorElement>, href: string): void => {
+    if (!href.startsWith('#') || href === '#') return;
+
+    event.preventDefault();
+    const wasMenuOpen = menuOpen;
+    closeMenu();
+    const targetId = href.slice(1);
+
+    if (wasMenuOpen) {
+      window.setTimeout(() => {
+        syncHeaderHeight();
+        scrollToSection(targetId);
+      }, 220);
+    } else {
+      scrollToSection(targetId);
+    }
+  };
+
+  useEffect(() => {
+    syncHeaderHeight();
+
+    const header = headerRef.current;
+    if (!header) return;
+
+    const resizeObserver = new ResizeObserver(syncHeaderHeight);
+    resizeObserver.observe(header);
+    window.addEventListener('resize', syncHeaderHeight);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener('resize', syncHeaderHeight);
+    };
+  }, [menuOpen]);
+
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
     return () => {
@@ -198,7 +252,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-background text-primary">
-      <header className="fixed left-0 right-0 top-0 z-50 border-b border-secondary/15 bg-white/90 backdrop-blur-xl">
+      <header
+        ref={headerRef}
+        className="fixed left-0 right-0 top-0 z-50 border-b border-secondary/15 bg-white/90 backdrop-blur-xl"
+      >
         <nav className="relative mx-auto flex max-w-6xl items-center justify-between px-6 py-3 md:px-5 md:py-4">
           <a href="#" className="inline-flex shrink-0 items-center" aria-label="El Garcero - Inicio">
             <img
@@ -212,7 +269,12 @@ export default function App() {
 
           <div className="hidden items-center gap-6 text-sm font-medium text-primary/80 md:flex">
             {navLinks.map((link) => (
-              <a key={link.href} className="transition hover:text-secondary" href={link.href}>
+              <a
+                key={link.href}
+                className="transition hover:text-secondary"
+                href={link.href}
+                onClick={(event) => handleSectionNav(event, link.href)}
+              >
                 {link.label}
               </a>
             ))}
@@ -241,7 +303,7 @@ export default function App() {
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={closeMenu}
+                  onClick={(event) => handleSectionNav(event, link.href)}
                   className="rounded-xl px-3 py-3 text-base font-medium text-primary/80 transition hover:bg-secondary/10 hover:text-secondary"
                 >
                   {link.label}
@@ -357,6 +419,7 @@ export default function App() {
                   </a>
                   <a
                     href="#reservas"
+                    onClick={(event) => handleSectionNav(event, '#reservas')}
                     className="inline-flex items-center justify-center rounded-full bg-[#FFD028] px-2.5 py-2 text-[0.6875rem] font-semibold text-black shadow-[0_20px_40px_-16px_rgba(255,208,40,0.45)] transition hover:-translate-y-0.5 hover:bg-primary hover:text-white hover:shadow-premium sm:px-3 sm:py-2.5 sm:text-xs md:px-6 md:py-3 md:text-sm"
                   >
                     Reservar
