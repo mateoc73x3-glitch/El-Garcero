@@ -1,9 +1,12 @@
 # Dependencias y build
 frontend/node_modules/
 frontend/dist/
+backend/node_modules/
+backend/dist/
 
 # Secretos (nunca subir)
 frontend/.env
+backend/.env
 .env
 backend-env-backup.md
 

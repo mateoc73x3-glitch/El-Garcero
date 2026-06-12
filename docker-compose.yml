@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  el-garcero:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: el-garcero-frontend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    networks:
+      - n8n_default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.elgarcero.rule=Host(`elgarceroguamal.com`) || Host(`www.elgarceroguamal.com`)"
+      - "traefik.http.routers.elgarcero.priority=1"
+      - "traefik.http.services.elgarcero.loadbalancer.server.port=80"
+      - "traefik.http.routers.elgarcero.entrypoints=websecure"
+      - "traefik.http.routers.elgarcero.tls=true"
+      - "traefik.http.routers.elgarcero.tls.certresolver=mytlschallenge"
+
+  el-garcero-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: el-garcero-api
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    networks:
+      - n8n_default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.elgarcero-api.rule=(Host(`elgarceroguamal.com`) || Host(`www.elgarceroguamal.com`)) && PathPrefix(`/api`)"
+      - "traefik.http.routers.elgarcero-api.priority=100"
+      - "traefik.http.services.elgarcero-api.loadbalancer.server.port=3000"
+      - "traefik.http.routers.elgarcero-api.entrypoints=websecure"
+      - "traefik.http.routers.elgarcero-api.tls=true"
+      - "traefik.http.routers.elgarcero-api.tls.certresolver=mytlschallenge"
+
+networks:
+  n8n_default:
+    external: true

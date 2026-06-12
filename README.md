@@ -4,17 +4,16 @@ Aplicacion full-stack con NestJS + MongoDB + React/Vite + Tailwind para una expe
 
 ## 1) Instalacion
 
-### Backend
+### Backend (API de reservas)
 1. `cd backend`
-2. `cp .env.example .env`
+2. `cp .env.example .env` y completa `N8N_WEBHOOK_URL` + `N8N_WEBHOOK_KEY`
 3. `npm install`
-4. `npm run start:dev`
+4. `npm run start:dev` (escucha en `:3000`, prefijo `/api`)
 
 ### Frontend
 1. `cd frontend`
-2. `cp .env.example .env`
-3. `npm install`
-4. `npm run dev`
+2. `npm install`
+3. `npm run dev` (proxy `/api` → backend en desarrollo)
 
 ## 2) Arquitectura
 

@@ -9,19 +9,11 @@ export interface ReservationPayload {
   decoration: boolean;
 }
 
-const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
-const webhookKey = import.meta.env.VITE_N8N_WEBHOOK_KEY;
-
 export async function submitReservation(payload: ReservationPayload): Promise<void> {
-  if (!webhookUrl || !webhookKey) {
-    throw new Error('Webhook de reservas no configurado');
-  }
-
-  const response = await fetch(webhookUrl, {
+  const response = await fetch('/api/reservations', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-redirect-project-key': webhookKey,
     },
     body: JSON.stringify(payload),
   });
